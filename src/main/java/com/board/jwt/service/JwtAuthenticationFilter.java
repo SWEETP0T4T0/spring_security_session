@@ -30,7 +30,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
 
         // token이 있는지 검사 && secretKey검사와 유효시간 검사
-        if (token != null && jwtTokenProvider.validateToken(token)) {
+        if (token != null) {
+            jwtTokenProvider.validateToken(token);
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             // SecurityContext 에 Authentication 객체를 저장합니다.
             SecurityContextHolder.getContext().setAuthentication(authentication);
